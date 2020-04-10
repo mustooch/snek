@@ -48,7 +48,7 @@ function love.load()
   -- create the snek
   -- each "snek cell" is a table with: {img, x,y}
   snek = {
-    {blocks[4], 12,8}, -- snek head
+    {cells[4], 12,8}, -- snek head
   }
   
   -- create borad for the food & snek & all
