@@ -10,7 +10,7 @@ cells = {
 
 function make_board(w,h)
   -- create 2 dimensional array of width w, height h
-  b = {}
+  local b = {}
   for i = 1, h do
     b[i] = {}
     for j = 1, w do
@@ -30,13 +30,28 @@ function show_board(b)
   end
 end
 
-function grow_snek(s)
+function grow_snek(s, x,y)
   -- add a snek cell to the stack when he eats
-  -- and change the board's value
-  table.insert(s, {})
+  -- use the location of the last cell to determine the position
+  -- of the new one
+  local dx, dy
+  if s[#s][4]=="up" then dx,dy = s[#s][2], s[#s][3]+1 end
+  if s[#s][4]=="down" then dx,dy = s[#s][2], s[#s][3]-1 end
+  if s[#s][4]=="left" then dx,dy = s[#s][2]+1, s[#s][3] end
+  if s[#s][4]=="right" then dx,dy = s[#s][2]-1, s[#s][3] end
+  
+  table.insert(s, {cells[3], dx,dy})
 end
 
-function move_snek(s)
+function move_snek(s, b, dir)
+  s[1][
+  
+  for i = 2,  do
+    
+  end
+end
+
+function make_apple(b)
   
 end
 
@@ -45,10 +60,13 @@ function love.load()
   -- delta for movements
   delta = 0
   
+  -- direction variable for the snek
+  s_dir = "up"
+  
   -- create the snek
-  -- each "snek cell" is a table with: {img, x,y}
+  -- each "snek cell" is a table with: {img, x,y, direction}
   snek = {
-    {cells[4], 12,8}, -- snek head
+    {cells[4], 12,8, "up"}, -- snek head
   }
   
   -- create borad for the food & snek & all
@@ -68,7 +86,7 @@ function love.update(dt)
   -- move snek each 1 sec
   if delta >= 1 then
     delta = delta - 1
-    move_snek(snek)
+    move_snek(snek, board, s_dir)
   end
 end
   
